@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Navigate, Route, BrowserRouter as Router, Routes, useParams } from 'react-router-dom';
+import { CheckInPage, StatsPage, UserStatsPage } from './pages';
+import { MainLayout } from './layout';
+
+const redirectToCheckin = <Navigate to="/checkin" replace/>
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+	<Router>
+		<Routes>
+			<Route path="/" element={<MainLayout/>}>
+				<Route index element={redirectToCheckin} />
+				<Route path="/checkin" element={<CheckInPage />} />
+				<Route path="/stats" element={<StatsPage />} />
+				<Route path="/stats/:id" element={<UserStatsPage />} />
+				<Route path="*" element={redirectToCheckin} />
+			</Route>
+		</Routes>
+	</Router>
   );
 }
 
