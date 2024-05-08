@@ -1,4 +1,4 @@
-import { Navigate, Route, BrowserRouter as Router, Routes, useParams } from 'react-router-dom';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { CheckInPage, StatsPage, UserStatsPage } from './pages';
 import { MainLayout } from './layout';
 
