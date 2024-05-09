@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import useAPI from './useAPI';
 
 const DATE_TIME_FORMAT = 'HH:mm DD/MM/YYYY';
 const TIME_FORMAT = 'HH:mm';
@@ -16,4 +17,4 @@ function formatTime(date: Date) {
 	return dayjs(date).format(TIME_FORMAT);
 }
 
-export { formatDateTime, formatTime, formatDate };
+export { formatDateTime, formatTime, formatDate, useAPI };
