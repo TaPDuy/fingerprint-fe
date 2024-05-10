@@ -1,0 +1,49 @@
+nav {
+	display: flex;
+	gap: 8px;
+	padding: 12px 20px;
+	align-items: center;
+	height: 64px;
+
+	.nav-item {
+		text-decoration: none;
+		font-size: 1.2rem;
+		font-weight: 300;
+		opacity: .8;
+		color: var(--primary-100);
+		padding: 0 8px;
+		position: relative;
+		transition: all 0.4s ease-in-out;
+
+		&-active, &:hover {
+			font-size: 1.8rem;
+			font-weight: 600;
+			opacity: 1;
+			transition: all 0.4s ease-in-out;
+		}
+
+		&::before {
+			display: block;
+			position: absolute;
+			content: " ";
+			inset: 0;
+			width: 0;
+			height: 100%;
+			background-color: var(--primary-100);
+			z-index: -1;
+			opacity: 0;
+			transition: opacity 0.4s ease-in-out, width 0.4s 0.4s ease-in-out;
+		}
+
+		&-active {
+			color: var(--surface);
+			position: relative;
+
+			&::before {
+				width: 100%;
+				opacity: 1;
+				transition: all 0.4s ease-in-out;
+			}
+		}
+	}
+}
