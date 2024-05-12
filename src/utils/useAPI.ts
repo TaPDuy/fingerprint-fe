@@ -8,7 +8,7 @@ const useAPI = <T>(action: (...args: any[]) => Observable<T>) => {
 	const trigger = useCallback((...args: any[]) => {
 		setIsLoading(true);
 		setError(undefined);
-		return action(args)
+		return action(...args)
 			.pipe(
 				tap(() => setIsLoading(false)),
 				catchError((err) => {

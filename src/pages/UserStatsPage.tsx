@@ -1,9 +1,24 @@
 import { useParams } from "react-router-dom";
-import { CheckInRecord, User } from "../models";
-import { formatDate, formatTime } from "../utils";
+import { CheckInRecord, GetCheckInsByIDResponse, User } from "../models";
+import { formatDate, formatTime, useAPI } from "../utils";
+import { useEffect, useState } from "react";
+import { getCheckinsByID as getCheckinsByIDAPI } from "../services";
 
 function UserStatsPage() {
 	const { id } = useParams();
+
+	const { trigger: getCheckinsByID, isLoading, error } = useAPI(getCheckinsByIDAPI);
+	const [mockData, setMockData] = useState<GetCheckInsByIDResponse>();
+	
+	useEffect(() => {
+		if (!id) return;
+
+		getCheckinsByID(id)
+			.subscribe((res) => {
+				if (!res) return;
+				setMockData(() => res);
+			});
+	}, [getCheckinsByID, id]);
 
 	if (!id) return <></>;
 
@@ -14,22 +29,6 @@ function UserStatsPage() {
 		email: "johnsmith@gmail.com",
 		phoneNumber: "0903499034"
 	}
-	const totalCheckin = 1000;
-	const totalLate = 10;
-	const mockData: CheckInRecord[] = [
-		{
-			checkInTime: new Date(2023, 11, 12, 10, 11, 24),
-			isLate: true
-		},
-		{
-			checkInTime: new Date(2023, 11, 12, 10, 8, 24),
-			isLate: false
-		},
-		{
-			checkInTime: new Date(2023, 10, 12, 10, 10, 24),
-			isLate: true
-		},
-	];
 
 	return (
 		<>
@@ -63,7 +62,7 @@ function UserStatsPage() {
 							<th>Check-in time</th>
 							<th>Late</th>
 						</tr>
-						{mockData.map((item, i) => (
+						{mockData?.checkins.map((item, i) => (
 							<tr key={i}>
 								<td>{formatDate(item.checkInTime)}</td>
 								<td>{formatTime(item.checkInTime)}</td>

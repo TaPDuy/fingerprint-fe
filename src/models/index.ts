@@ -19,4 +19,16 @@ interface User {
 	phoneNumber: string
 }
 
-export type { UserCheckIn, CheckInRecord, User };
+interface GetCheckInsResponse {
+	totalCheckin: number
+	totalLate: number
+	checkins: UserCheckIn[]
+}
+
+interface GetCheckInsByIDResponse {
+	totalCheckin: number
+	totalLate: number
+	checkins: CheckInRecord[]
+}
+
+export type { UserCheckIn, CheckInRecord, User, GetCheckInsResponse, GetCheckInsByIDResponse };

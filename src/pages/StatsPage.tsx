@@ -1,54 +1,51 @@
 import { NavLink } from "react-router-dom";
-import { UserCheckIn } from "../models";
-import { formatDate, formatTime } from "../utils";
+import { formatDate, formatTime, useAPI } from "../utils";
+import "../styles/StatsPage.scss";
+import { getCheckins as getCheckinsAPI } from "../services";
+import { useEffect, useState } from "react";
+import { take } from "rxjs";
+import { GetCheckInsResponse } from "../models";
 
 function StatsPage() {
 
-	const mockData: UserCheckIn[] = [
-		{
-			userId: 1,
-			checkInTime: new Date(2023, 11, 12, 10, 11, 24),
-			firstName: 'John',
-			lastName: 'Smith',
-			isLate: true
-		},
-		{
-			userId: 2,
-			checkInTime: new Date(2023, 11, 12, 10, 8, 24),
-			firstName: 'John',
-			lastName: 'Smith 2',
-			isLate: false
-		},
-		{
-			userId: 3,
-			checkInTime: new Date(2023, 10, 12, 10, 10, 24),
-			firstName: 'John',
-			lastName: 'Smith 3',
-			isLate: true
-		},
-	];
+	const { trigger: getCheckins, isLoading, error } = useAPI(getCheckinsAPI);
+	const [mockData, setMockData] = useState<GetCheckInsResponse>();
+
+	useEffect(() => {
+		getCheckins()
+			.subscribe((res) => {
+				if (!res) return;
+				setMockData(() => res);
+			});
+	}, [getCheckins]);
 
 	return (
-		<table>
-			<tr>
-				<th>Index</th>
-				<th>Name</th>
-				<th>Date</th>
-				<th>Check-in time</th>
-				<th>Late</th>
-			</tr>
-			{mockData.map((item, i) => (
-				<tr key={i}>
-					<th>{i}</th>
-					<th>
-						<NavLink to={`/stats/${item.userId}`}>{item.firstName + " " + item.lastName}</NavLink>
-					</th>
-					<th>{formatDate(item.checkInTime)}</th>
-					<th>{formatTime(item.checkInTime)}</th>
-					<th>{item.isLate && "X"}</th>
-				</tr>
-			))}
-		</table>
+		<>
+			<div>
+				<table cellPadding={0} cellSpacing={0} border={0}>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Check-in time</th>
+							<th>Late</th>
+						</tr>
+					</thead>
+					<tbody>
+						{mockData?.checkins.map((item, i) => (
+							<tr key={i}>
+								<td>
+									<NavLink to={`/stats/${item.userId}`}>{item.firstName + " " + item.lastName}</NavLink>
+								</td>
+								<td>{formatDate(item.checkInTime)}</td>
+								<td>{formatTime(item.checkInTime)}</td>
+								<td>{item.isLate && "X"}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</>
 	)
 }
 
