@@ -31,4 +31,21 @@ interface GetCheckInsByIDResponse {
 	checkins: CheckInRecord[]
 }
 
-export type { UserCheckIn, CheckInRecord, User, GetCheckInsResponse, GetCheckInsByIDResponse };
+enum DateRangeType {
+	ALL,
+	LAST_WEEK,
+	THIS_WEEK,
+	LAST_MONTH,
+	THIS_MONTH,
+	LAST_YEAR,
+	THIS_YEAR,
+	CUSTOM
+}
+
+interface DateRangePickerOption {
+	value: DateRangeType
+	label: string
+}
+
+export { DateRangeType };
+export type { UserCheckIn, CheckInRecord, User, GetCheckInsResponse, GetCheckInsByIDResponse, DateRangePickerOption };
