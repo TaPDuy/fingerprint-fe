@@ -3,7 +3,7 @@ nav {
 	gap: 8px;
 	padding: 12px 20px;
 	align-items: center;
-	height: 64px;
+	flex-wrap: wrap;
 
 	.nav-item {
 		text-decoration: none;
@@ -14,6 +14,7 @@ nav {
 		padding: 0 8px;
 		position: relative;
 		transition: all 0.4s ease-in-out;
+		text-wrap: nowrap;
 
 		&-active, &:hover {
 			font-size: 1.8rem;
@@ -36,6 +37,25 @@ nav {
 		}
 
 		&-active {
+			color: var(--surface);
+			position: relative;
+
+			&::before {
+				width: 100%;
+				opacity: 1;
+				transition: all 0.4s ease-in-out;
+			}
+		}
+	}
+
+	.logout-button {
+		color: var(--error-900);
+
+		&::before {
+			background-color: var(--error-900);
+		}
+
+		&:hover {
 			color: var(--surface);
 			position: relative;
 
