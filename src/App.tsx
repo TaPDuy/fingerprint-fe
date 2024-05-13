@@ -1,21 +1,13 @@
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { CheckInPage, StatsPage, UserStatsPage } from './pages';
-import { MainLayout } from './layout';
-
-const redirectToCheckin = <Navigate to="/checkin" replace/>
+import { AppRoutes } from './layout';
+import { AuthContextProvider } from './context';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   return (
 	<Router>
-		<Routes>
-			<Route path="/" element={<MainLayout/>}>
-				<Route index element={redirectToCheckin} />
-				<Route path="/checkin" element={<CheckInPage />} />
-				<Route path="/stats" element={<StatsPage />} />
-				<Route path="/stats/:id" element={<UserStatsPage />} />
-				<Route path="*" element={redirectToCheckin} />
-			</Route>
-		</Routes>
+		<AuthContextProvider>
+			<AppRoutes />
+		</AuthContextProvider>
 	</Router>
   );
 }

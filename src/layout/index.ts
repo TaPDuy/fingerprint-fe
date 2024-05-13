@@ -1,3 +1,4 @@
 import MainLayout from "./MainLayout";
+import AppRoutes from "./AppRoutes";
 
-export { MainLayout };
+export { MainLayout, AppRoutes };
