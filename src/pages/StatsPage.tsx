@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { GetCheckInsResponse } from "../models";
 import { DateRangePicker } from "../shared";
 import { DateRange } from "react-day-picker";
+import { X } from "lucide-react";
 
 function StatsPage() {
 
@@ -23,33 +24,35 @@ function StatsPage() {
 
 	return (
 		<>
-			<div>
+			<div className="flex flex-col gap-8 h-full">
 				<DateRangePicker onSelected={(value) => setRange(() => value)} />
 				{ isLoading && <h1>Loading...</h1> }
-				{ !isLoading && <div>
-					<h3>Total late checkin: {`${mockData?.totalLate}/${mockData?.totalCheckin}`}</h3>
-					<table cellPadding={0} cellSpacing={0} border={0}>
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Date</th>
-								<th>Check-in time</th>
-								<th>Late</th>
-							</tr>
-						</thead>
-						<tbody>
-							{mockData?.checkins.map((item, i) => (
-								<tr key={i}>
-									<td>
-										<NavLink to={`/stats/${item.userId}`}>{item.firstName + " " + item.lastName}</NavLink>
-									</td>
-									<td>{formatDate(item.checkInTime)}</td>
-									<td>{formatTime(item.checkInTime)}</td>
-									<td>{item.isLate && "X"}</td>
+				{ !isLoading && <div className="max-w-[864px] self-center w-full h-full">
+					<h3 className="font-bold p-4">Total late checkin: {`${mockData?.totalLate}/${mockData?.totalCheckin}`}</h3>
+					<div className="w-full flex items-center overflow-auto h-[512px]">
+						<table className="w-full border-collapse" cellPadding={0} cellSpacing={0} border={0}>
+							<thead>
+								<tr className="hover:bg-slate-100">
+									<th className="text-center sticky top-0 bg-white">Name</th>
+									<th className="text-center sticky top-0 bg-white">Date</th>
+									<th className="text-center sticky top-0 bg-white">Check-in time</th>
+									<th className="text-center sticky top-0 bg-white">Late</th>
 								</tr>
-							))}
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								{mockData?.checkins.map((item, i) => (
+									<tr key={i} className="hover:bg-slate-100">
+										<td className="text-center">
+											<NavLink to={`/stats/${item.userId}`}>{item.firstName + " " + item.lastName}</NavLink>
+										</td>
+										<td className="text-center">{formatDate(item.checkInTime)}</td>
+										<td className="text-center">{formatTime(item.checkInTime)}</td>
+										<td className="flex justify-center">{item.isLate && <X color="red"/>}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
 				</div> }
 			</div>
 		</>

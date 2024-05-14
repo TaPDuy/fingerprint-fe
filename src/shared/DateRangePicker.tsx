@@ -69,13 +69,15 @@ function DateRangePicker(props: DateRangePickerProps) {
 
 	return (
 		<>
-			<Combobox 
-				items={DATE_RANGE_PICKER_OPTIONS} 
-				placeholder="Select date range" 
-				onSelected={handleTypeSelected}
-				defaultValue={currentType}
-			/>
-			{ currentType === DateRangeType.CUSTOM && <DateRangePickerPopup value={range} onSelected={setRange} /> }
+			<div className="flex gap-4">
+				<Combobox 
+					items={DATE_RANGE_PICKER_OPTIONS} 
+					placeholder="Select date range" 
+					onSelected={handleTypeSelected}
+					defaultValue={currentType}
+				/>
+				{ currentType === DateRangeType.CUSTOM && <DateRangePickerPopup value={range} onSelected={setRange} /> }
+			</div>
 		</>
 	);
 }

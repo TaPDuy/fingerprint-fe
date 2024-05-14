@@ -26,10 +26,10 @@ function Navbar() {
 						className={({ isActive }) => navItemClassNames(isActive)} 
 						to="/stats" 
 					>Statistics</NavLink>
-					<NavLink 
+					{/* <NavLink 
 						className={({ isActive }) => navItemClassNames(isActive)} 
 						to="/models" 
-					>Models</NavLink>
+					>Models</NavLink> */}
 				</>}
 				<button 
 					className="nav-item logout-button"
