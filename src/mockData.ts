@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { GetCheckInsByIDResponse, GetCheckInsResponse, UserCheckIn } from "./models";
+import { GetCheckInsByIDResponse, GetCheckInsResponse, User, UserCheckIn } from "./models";
 
 const NUM_CHECKINS = 50;
 const CHECKINS: UserCheckIn[] = new Array(50).fill(0).map((_, i) => {
@@ -33,4 +33,12 @@ const GET_LIST_CHECKINS_BY_ID = CHECKINS.reduce<{ [userId: number]: GetCheckInsB
 	return acc;
 }, {});
 
-export { GET_LIST_CHECKINS, GET_LIST_CHECKINS_BY_ID }
+const USER: User = {
+	id: 1,
+	firstName: 'Josh',
+	lastName: 'Schmit',
+	email: 'js1@gmail.com',
+	phoneNumber: '0903499034'
+}
+
+export { GET_LIST_CHECKINS, GET_LIST_CHECKINS_BY_ID, USER }

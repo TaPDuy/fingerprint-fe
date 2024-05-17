@@ -3,6 +3,7 @@ import { CheckInRecord, GetCheckInsByIDResponse, User } from "../models";
 import { formatDate, formatTime, useAPI } from "../utils";
 import { useEffect, useState } from "react";
 import { getCheckinsByID as getCheckinsByIDAPI } from "../services";
+import { X } from "lucide-react";
 
 function UserStatsPage() {
 	const { id } = useParams();
@@ -32,8 +33,8 @@ function UserStatsPage() {
 
 	return (
 		<>
-			<h1>Statistics of { userData.firstName + " " + userData.lastName }</h1>
-			<div className="container">
+			<h1 className="font-bold text-lg">Statistics of { userData.firstName + " " + userData.lastName }</h1>
+			<div className="container flex gap-8">
 				<div className="user-details">
 					<table>
 						<tr>
@@ -64,9 +65,9 @@ function UserStatsPage() {
 						</tr>
 						{mockData?.checkins.map((item, i) => (
 							<tr key={i}>
-								<td>{formatDate(item.checkInTime)}</td>
-								<td>{formatTime(item.checkInTime)}</td>
-								<td>{item.isLate && "X"}</td>
+								<td className="text-center">{formatDate(item.checkInTime)}</td>
+								<td className="text-center">{formatTime(item.checkInTime)}</td>
+								<td className="flex justify-center">{item.isLate && <X color="red"/>}</td>
 							</tr>
 						))}
 					</table>
