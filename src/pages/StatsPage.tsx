@@ -27,7 +27,8 @@ function StatsPage() {
 			<div className="flex flex-col gap-8 h-full">
 				<DateRangePicker onSelected={(value) => setRange(() => value)} />
 				{ isLoading && <h1>Loading...</h1> }
-				{ !isLoading && <div className="max-w-[864px] self-center w-full h-full">
+				{ error && <h1>{ error }</h1>}
+				{ (!isLoading && !error) && <div className="max-w-[864px] self-center w-full h-full">
 					<h3 className="font-bold p-4">Total late checkin: {`${mockData?.totalLate}/${mockData?.totalCheckin}`}</h3>
 					<div className="w-full flex items-center overflow-auto h-[512px]">
 						<table className="w-full border-collapse" cellPadding={0} cellSpacing={0} border={0}>
